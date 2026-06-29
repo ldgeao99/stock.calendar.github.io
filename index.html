@@ -252,29 +252,27 @@ function closeModal(){
 
 async function saveEvent(){
 
-    const params = new URLSearchParams({
-        date: document.getElementById('date').value,
-        eventName: document.getElementById('eventName').value,
-        detail: document.getElementById('detail').value,
-        relatedStocks: document.getElementById('relatedStocks').value
+    const formData = new FormData();
+
+    formData.append("date",
+        document.getElementById("date").value);
+
+    formData.append("eventName",
+        document.getElementById("eventName").value);
+
+    formData.append("detail",
+        document.getElementById("detail").value);
+
+    formData.append("relatedStocks",
+        document.getElementById("relatedStocks").value);
+
+    fetch(API_URL,{
+        method:'POST',
+        mode:'no-cors',
+        body:formData
     });
 
-    try {
-
-        await fetch(API_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            body: params
-        });
-
-        alert("저장 요청 완료");
-        closeModal();
-
-    } catch(error) {
-
-        console.error(error);
-        alert("저장 실패");
-    }
+    alert("저장 요청 완료");
 }
 
 
