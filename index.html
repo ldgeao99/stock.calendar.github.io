@@ -252,39 +252,31 @@ function closeModal(){
 
 async function saveEvent(){
 
-    const formData = new FormData();
-
-    formData.append("date",
-        document.getElementById('date').value);
-
-    formData.append("eventName",
-        document.getElementById('eventName').value);
-
-    formData.append("detail",
-        document.getElementById('detail').value);
-
-    formData.append("relatedStocks",
-        document.getElementById('relatedStocks').value);
+    const params = new URLSearchParams({
+        date: document.getElementById('date').value,
+        eventName: document.getElementById('eventName').value,
+        detail: document.getElementById('detail').value,
+        relatedStocks: document.getElementById('relatedStocks').value
+    });
 
     try {
 
         await fetch(API_URL, {
             method: 'POST',
-            body: formData
+            mode: 'no-cors',
+            body: params
         });
 
+        alert("저장 요청 완료");
         closeModal();
-        await loadEvents();
-
-        alert("저장 완료");
 
     } catch(error) {
 
         console.error(error);
         alert("저장 실패");
-
     }
 }
+
 
 function changeMonth(value){
 
